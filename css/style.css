@@ -1,0 +1,25 @@
+@import url("auth.css");
+@import url("header.css");
+@import url("sectiondata.css");
+@import url("xpgraph.CSS");
+@import url("radargraph.css");
+
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.hidden{
+    display: none;
+}
+#shart {
+display: flex;
+  flex-wrap: wrap; 
+align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+
+} 
