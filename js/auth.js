@@ -1,5 +1,5 @@
 import { HomePage } from "./home.js";
-import { logincomponent } from "./component.js";
+import { logincomponent ,showMessage} from "./component.js";
 export async function Auth() {
 
 let login = logincomponent()
@@ -31,17 +31,30 @@ document.body.append(login)
     });
 
     if (!res.ok) {
-      alert("Login failed");
+      showMessage("Invalid  Credential ")
+     
       return;
     }
 
     const data = await res.json();
 
 
-    localStorage.setItem("token", data); // or data.token if response includes a key
-    alert("Login successful");
-    HomePage()
+    sessionStorage.setItem("token", data); // or data.token if response includes a ke
+    await HomePage()
+    logOut()
   });
+}
+export  function logOut(){
+  
+  let logout =  document.getElementById('logout')
+ 
+  if (logout) {
+    logout.addEventListener("click", ()=>{
+      sessionStorage.clear()
+      location.reload()
+    })
+  }
+
 }
 
 

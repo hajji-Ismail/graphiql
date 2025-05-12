@@ -116,120 +116,20 @@ let xpdiv = document.createElement("div");
 
   return section;
 }
+export function showMessage(message) {
+  const popup = document.createElement("div");
+  popup.setAttribute("id", "message_popup");
+  popup.innerHTML = `<h2>${message}</h2>`;
+  document.body.appendChild(popup);
 
-// xpGraphComponent.js
-// xpGraphComponent.js
-
-// xpGraphComponent.js
-// xpGraphComponent.js
-
-// export function createXpGraph(data) {
-//   const container = document.createElement("div");
-//   container.classList.add("xp-graph-container");
-
-//   const svgNS = "http://www.w3.org/2000/svg";
-//   const width = 900;
-//   const height = 500;
-//   const padding = 100;
-
-//   const svg = document.createElementNS(svgNS, "svg");
-//   svg.setAttribute("width", width);
-//   svg.setAttribute("height", height);
-//   svg.classList.add("xp-graph-svg");
-
-//   const tooltip = document.createElement("div");
-//   tooltip.classList.add("xp-tooltip", "hidden");
-//   tooltip.style.backgroundColor = "blue"
+  // Automatically hide after 3 seconds
+  setTimeout(() => {
+    popup.remove();
+  }, 3000);
+}
 
 
-//   const points = data.map(d => ({
-//     x: new Date(d.createdAt).getTime(),
-//     y: d.amount,
-//     original: d
-//   })).sort((a, b) => a.x - b.x);
- 
 
-//   const xMin = points[0].x;// get min date
-//   const xMax = points[points.length - 1].x;// get max date
-//   const yMax = Math.max(...points.map(p => p.y));// get max xp
-
-//   const scaleX = (x) =>
-//     padding + ((x - xMin) / (xMax - xMin)) * (width - 2 * padding);
-//   const scaleY = (y) =>
-//     height - padding - (y / yMax) * (height - 2 * padding);
-
-//   // Draw vertical bars (columns)
-//   const barWidth = (width -2 * padding) / points.length * 0.6;
-//   points.forEach(p => {
-//     const rect = document.createElementNS(svgNS, "rect");
-//     const x = scaleX(p.x) + barWidth /2;
-//     const y = scaleY(p.y);
-//     const barHeight = height - padding - y;
-
-//     rect.setAttribute("x", x);
-//     rect.setAttribute("y", y);
-//     rect.setAttribute("width", barWidth);
-//     rect.setAttribute("height", barHeight);
-//     rect.classList.add("xp-bar");
-
-//     rect.addEventListener("mouseenter", () => {
-//       tooltip.classList.remove("hidden");
-//       tooltip.innerHTML = `
-//         <strong>${new Date(p.x).toLocaleDateString()}</strong><br>
-//         XP: ${p.y}<br>
-//         Path: ${p.original.progress.path}
-//       `;
-//     });
-//     rect.addEventListener("mousemove", e => {
-//       tooltip.style.left = `${e.pageX + 10}px`;
-//       tooltip.style.top = `${e.pageY - 30}px`;
-//     });
-//     rect.addEventListener("mouseleave", () => {
-//       tooltip.classList.add("hidden");
-//     });
-
-//     svg.appendChild(rect);
-//   });
-
-//   // Append axis lines
-//   const xAxis = document.createElementNS(svgNS, "line");
-//   xAxis.setAttribute("x1", padding);
-//   xAxis.setAttribute("y1", height - padding);
-//   xAxis.setAttribute("x2", width - padding/2);
-//   xAxis.setAttribute("y2", height - padding);
-//   xAxis.classList.add("xp-axis");
-//   svg.appendChild(xAxis);
-
-//   const yAxis = document.createElementNS(svgNS, "line");
-//   yAxis.setAttribute("x1", padding);
-//   yAxis.setAttribute("y1", padding);
-//   yAxis.setAttribute("x2", padding);
-//   yAxis.setAttribute("y2", height - padding);
-//   yAxis.classList.add("xp-axis");
-//   svg.appendChild(yAxis);
-
-//   // X-axis label (XP)
-//   const xLabel = document.createElementNS(svgNS, "text");
-//   xLabel.setAttribute("x", width / 2);
-//   xLabel.setAttribute("y", height - padding + 35);
-//   xLabel.setAttribute("text-anchor", "middle");
-//   xLabel.classList.add("xp-label");
-//   xLabel.textContent = "Date";
-//   svg.appendChild(xLabel);
-
-//   // Y-axis label (Date)
-//   const yLabel = document.createElementNS(svgNS, "text");
-//   yLabel.setAttribute("x", -height / 2);
-//   yLabel.setAttribute("y", padding - 30);
-//   yLabel.setAttribute("transform", `rotate(-90)`);
-//   yLabel.setAttribute("text-anchor", "middle");
-//   yLabel.classList.add("xp-label");
-//   yLabel.textContent = "XP";
-//   svg.appendChild(yLabel);
-
-//   container.appendChild(svg);
-//   return container;
-// }
 export function createXpGraph(data) {
     const container = document.createElement('div');
     container.classList.add('xp-graph-container');
@@ -251,6 +151,7 @@ export function createXpGraph(data) {
     const processedData = data.map(d => ({
         x: new Date(d.createdAt),
         y: d.amount,
+        path : d.progress.path,
         original: d
     })).sort((a, b) => a.x - b.x);
 
@@ -302,8 +203,8 @@ export function createXpGraph(data) {
                 <div class="tooltip-content">
                     <strong>Date:</strong> ${point.x.toLocaleDateString()}<br>
                     <strong>XP:</strong> ${point.y}<br>
-                    <strong>Full Details:</strong><br>
-                    <pre>${JSON.stringify(point.original, null, 2)}</pre>
+                    <strong>Path</strong><br>
+                    <pre>${point.path}</pre>
                 </div>
             `;
             tooltip.style.left = `${e.pageX + 10}px`;

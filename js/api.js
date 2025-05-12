@@ -59,7 +59,7 @@ export async function fetchdata() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({ query })
     });
@@ -68,6 +68,6 @@ export async function fetchdata() {
   return data
 
   } catch (error) {
-    console.log("Fetch error:", error);
+ return
   }
 }

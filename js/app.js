@@ -1,11 +1,13 @@
-import { Auth } from "./auth.js";
+import { Auth, logOut } from "./auth.js";
 import { HomePage } from "./home.js";
 async function main() {
-    let token = localStorage.getItem("token");
+    let token = sessionStorage.getItem("token");
     if (!token) {
         await Auth();    
     } else {
-        HomePage();
+       await HomePage();
+       logOut()
+      
     }
 }
 
