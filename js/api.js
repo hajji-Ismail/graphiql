@@ -1,19 +1,19 @@
 export async function fetchdata() {
-  
-    const query = `
-  {
-    user {
+
+  const userQuery = `
+  user {
       firstName
       lastName
       auditRatio
       campus
       attrs
     }
-    xp :transaction ( where : {
+`;
+
+  const xpQuery = `
+  xp :transaction ( where : {
     type : { _eq : "xp"},
-    progress : {
-      path : { _regex : "^/oujda/module/(piscine-js$|(?!piscine-js/).*)$"}
-    }
+    eventId: { _eq: 41 }
   } )  {
   amount 
     type  
@@ -23,11 +23,12 @@ export async function fetchdata() {
       
     }
   }
-    totalxpamount: transaction_aggregate(where: {
+`;
+
+  const totalXpQuery = `
+ totalxpamount: transaction_aggregate(where: {
       type: { _eq: "xp" },
-      progress: {
-        path: { _regex: "^/oujda/module/(piscine-js$|(?!piscine-js/).*)$" }
-      }
+       eventId: { _eq: 41 }
     }) {
       aggregate {
         sum {
@@ -35,11 +36,12 @@ export async function fetchdata() {
         }
       }
     }
-    levels: transaction_aggregate(where: {
+`;
+
+  const levelQuery = `
+  levels: transaction_aggregate(where: {
       type: { _eq: "level" },
-      progress: {
-        path: { _regex: "^/oujda/module/(piscine-js$|(?!piscine-js/).*)$" }
-      }
+         eventId: { _eq: 41 }
     }) {
       aggregate {
         max {
@@ -47,11 +49,24 @@ export async function fetchdata() {
         }
       }
     }
+`;
+
+  const skillQuery = `
     skil: transaction(where: { type: { _regex: "skill" } }) {
       amount
       type
     }
-  }`;
+`;
+  const query = `
+{
+  ${userQuery}
+  ${xpQuery}
+  ${totalXpQuery}
+  ${levelQuery}
+  ${skillQuery}
+}
+`;
+
 
   try {
     const response = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
@@ -63,11 +78,13 @@ export async function fetchdata() {
       },
       body: JSON.stringify({ query })
     });
-
     const data = await response.json();
-  return data
+    return data
 
   } catch (error) {
- return
+    return
   }
 }
+
+
+
