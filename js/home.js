@@ -33,6 +33,7 @@ async function HomePage() {
 
   const xp_section = await createXpGraph(xpData);
   const skills_section = await createSkillsRadarChart(skillData);
+  
   body.append(xp_section, skills_section);
 
   const footer = Footer()
