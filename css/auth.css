@@ -3,18 +3,19 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #2c3e50, #3498db);
+  background: linear-gradient(to right, var(--card-bg), var(--bg-color));
   padding: 1rem;
 }
 
 .login-header {
   text-align: center;
 }
+
 .login-form {
-  background-color: #fff;
+  background-color: var(--bg-color); /* Dark form background */
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -31,20 +32,22 @@
   top: 50%;
   left: 0.8rem;
   transform: translateY(-50%);
-  color: #888;
+  color: #888; /* Consider using a muted text var if desired */
 }
 
 .input {
   width: 100%;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid #444; /* Softer border for dark mode */
   border-radius: 0.5rem;
   font-size: 1rem;
+  background-color: #1e1e1e; /* Matches --card-bg */
+  color: var(--text-color);
   transition: border-color 0.3s ease;
 }
 
 .input:focus {
-  border-color: #3498db;
+  border-color: var(--primary-color); /* Bloody red focus */
   outline: none;
 }
 
@@ -52,7 +55,7 @@
   padding: 0.75rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: #3498db;
+  background-color: var(--primary-color);
   color: #fff;
   font-size: 1.1rem;
   cursor: pointer;
@@ -60,5 +63,5 @@
 }
 
 .submit-btn:hover {
-  background-color: #2980b9;
+  background-color: #c21f27; /* Slightly darker bloody red */
 }
