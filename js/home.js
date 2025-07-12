@@ -31,8 +31,8 @@ async function HomePage() {
   });
   body.appendChild(section);
 
-  const xp_section = await createXpGraph(xpData);
-  const skills_section = await createSkillsRadarChart(skillData);
+  const xp_section = createXpGraph(xpData);
+  const skills_section =  createSkillsRadarChart(skillData);
   
   body.append(xp_section, skills_section);
 

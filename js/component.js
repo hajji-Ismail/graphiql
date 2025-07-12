@@ -17,7 +17,7 @@ export function Header() {
       <i class="fas fa-sign-out-alt"></i> Log out
     </a>`;
 
-    navList.appendChild(logoutLink);
+    navList.appendChild(logoutLink);sessionStorage
     nav.appendChild(navList);
 
     header.append(logo, nav);
@@ -31,7 +31,7 @@ export function Footer() {
 
     footer.innerHTML = `
     <p>&copy; ${new Date().getFullYear()} Z01. All rights reserved.</p>
-  `;
+  `;sessionStorage
 
     return footer;
 }

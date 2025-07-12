@@ -3,7 +3,9 @@
 A personal profile web application built to explore and learn **GraphQL**, **JWT authentication**, and **SVG-based data visualization** using the Zone01 Oujda learning platform API.
 
 ---
+## 🔗 Live Demo
 
+👉 [**View Live Demo**](https://hajji-ismail.github.io/graphiql.github.io/)  
 ## Project Overview
 
 This project demonstrates how to build a dynamic profile page by querying personalized user data from the Zone01 Oujda GraphQL API. It includes:

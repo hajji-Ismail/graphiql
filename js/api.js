@@ -1,3 +1,5 @@
+import { Auth } from "./auth.js";
+
 export async function fetchdata() {
 
   const userQuery = `
@@ -69,16 +71,22 @@ export async function fetchdata() {
 
 
   try {
+    
     const response = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify({ query })
     });
-    const data = await response.json();
+    const data = await response.json();    
+    if (data.errors){
+      document.body.innerHTML= ''
+      await Auth()
+      return
+    }
+
     return data
 
   } catch (error) {
